@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import debounce from "lodash/debounce";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../features/products/productsThunks";
 import ProductCard from "../components/ProductCard";
@@ -10,14 +11,34 @@ export default function Home() {
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
+  const [sort, setSort] = useState(""); // "asc" | "desc" | ""
+
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
+
+  // Debounce search updates to avoid filtering on every keystroke
+  useEffect(() => {
+    const handler = debounce((value) => setDebouncedSearch(value), 300);
+    handler(search);
+    return () => handler.cancel();
+  }, [search]);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const filteredProducts = items
-    .filter(p => p.title.toLowerCase().includes(search.toLowerCase()))
-    .filter(p => (category ? p.category === category : true));
+  const filteredProducts = useMemo(() => {
+    const bySearch = items
+      .filter(p => p.title.toLowerCase().includes(debouncedSearch.toLowerCase()))
+      .filter(p => (category ? p.category === category : true));
+
+    if (sort === "asc") {
+      return [...bySearch].sort((a, b) => a.price - b.price);
+    }
+    if (sort === "desc") {
+      return [...bySearch].sort((a, b) => b.price - a.price);
+    }
+    return bySearch;
+  }, [items, debouncedSearch, category, sort]);
 
   if (loading) return <p>Loading...</p>;
 
@@ -29,6 +50,8 @@ export default function Home() {
           setSearch={setSearch}
           category={category}
           setCategory={setCategory}
+          sort={sort}
+          setSort={setSort}
           categories={categories}
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
