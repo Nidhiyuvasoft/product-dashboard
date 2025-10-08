@@ -1,0 +1,38 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addFavorite } from "../features/favorites/favoritesSlice";
+
+export default function ProductDetail() {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios.get(`https://fakestoreapi.com/products/${id}`).then(res => setProduct(res.data));
+  }, [id]);
+
+  if (!product) return <p>Loading...</p>;
+
+  return (
+    <div className="px-4 py-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="w-full p-6 bg-white border rounded-lg flex items-center justify-center">
+          <img src={product.image} alt={product.title} className="max-h-80 w-auto object-contain" />
+        </div>
+        <div>
+          <h1 className="text-3xl font-bold">{product.title}</h1>
+          <p className="mt-3 text-gray-700">{product.description}</p>
+          <p className="mt-4 text-2xl font-semibold">${product.price}</p>
+          <button
+            className="mt-6 bg-blue-600 text-white px-5 py-3 rounded-md hover:bg-blue-700 transition-colors"
+            onClick={() => dispatch(addFavorite(product))}
+          >
+            Add to Favorites
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
