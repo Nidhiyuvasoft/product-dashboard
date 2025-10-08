@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addFavorite } from "../features/favorites/favoritesSlice";
+import toast from 'react-hot-toast';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const dispatch = useDispatch();
+  const favorites = useSelector(state => state.favorites);
 
   useEffect(() => {
     axios.get(`https://fakestoreapi.com/products/${id}`).then(res => setProduct(res.data));
@@ -27,7 +29,15 @@ export default function ProductDetail() {
           <p className="mt-4 text-2xl font-semibold">${product.price}</p>
           <button
             className="mt-6 bg-blue-600 text-white px-5 py-3 rounded-md hover:bg-blue-700 transition-colors"
-            onClick={() => dispatch(addFavorite(product))}
+            onClick={() => {
+              const exists = favorites.some(f => f.id === product.id);
+              if (exists) {
+                toast("Product already in favorites", { icon: "ℹ️" });
+                return;
+              }
+              dispatch(addFavorite(product));
+              toast.success("Added to favorites");
+            }}
           >
             Add to Favorites
           </button>
