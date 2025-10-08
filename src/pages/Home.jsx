@@ -11,11 +11,11 @@ export default function Home() {
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const [sort, setSort] = useState(""); // "asc" | "desc" | ""
+  const [sort, setSort] = useState(""); 
 
   const [debouncedSearch, setDebouncedSearch] = useState(search);
 
-  // Debounce search updates to avoid filtering on every keystroke
+  
   useEffect(() => {
     const handler = debounce((value) => setDebouncedSearch(value), 300);
     handler(search);

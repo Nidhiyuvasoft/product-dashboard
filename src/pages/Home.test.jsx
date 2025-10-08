@@ -7,7 +7,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import Home from './Home';
 import { MemoryRouter } from 'react-router-dom';
 
-// Prevent Home from dispatching the real fetch thunk which toggles loading
+
 vi.mock('../features/products/productsThunks', () => ({
   fetchProducts: () => ({ type: 'products/fetchProducts/mock' })
 }));
@@ -15,7 +15,7 @@ vi.mock('../features/products/productsThunks', () => ({
 function renderWithStore(preloadedState) {
   const store = configureStore({
     reducer: {
-      // Minimal reducers that just expose the provided state; avoids slice extraReducers setup
+      
       products: (state = preloadedState.products) => state,
       favorites: (state = preloadedState.favorites ?? []) => state,
     },
@@ -48,7 +48,7 @@ describe('Home integration: search, filter, sort', () => {
     const input = screen.getByPlaceholderText(/search/i);
     await user.type(input, 'shirt');
 
-    // advance debounce timer
+    
     await new Promise(r => setTimeout(r, 350));
 
     const cards = screen.getAllByRole('link', { name: /view details/i });

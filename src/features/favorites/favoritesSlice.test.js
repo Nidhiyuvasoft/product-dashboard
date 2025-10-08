@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import reducer, { addFavorite, removeFavorite, clearFavorites } from './favoritesSlice';
 
-// Mock localStorage for slice side-effects
+
 const localStorageMock = (() => {
   let store = {};
   return {
