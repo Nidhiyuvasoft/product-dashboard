@@ -44,7 +44,7 @@ export default function Home() {
   if (loading) return <Loader text="Loading products..." />;
 
   return (
-    <div className="px-4 py-6">
+    <div className="px-3 sm:px-4 py-4 sm:py-6">
       <div className="max-w-7xl mx-auto">
         <SearchFilter
           search={search}
@@ -55,7 +55,7 @@ export default function Home() {
           setSort={setSort}
           categories={categories}
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 mt-4 sm:mt-6">
           {filteredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}

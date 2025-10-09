@@ -19,17 +19,17 @@ export default function ProductDetail() {
   if (!product) return <Loader text="Loading product details..." />;
 
   return (
-    <div className="px-4 py-6 max-w-5xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="w-full p-6 bg-white border rounded-lg flex items-center justify-center">
-          <img src={product.image} alt={product.title} className="max-h-80 w-auto object-contain" />
+    <div className="px-3 sm:px-4 py-4 sm:py-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="w-full p-4 sm:p-6 bg-white border rounded-lg flex items-center justify-center">
+          <img src={product.image} alt={product.title} className="max-h-60 sm:max-h-80 w-auto object-contain" />
         </div>
-        <div>
-          <h1 className="text-3xl font-bold">{product.title}</h1>
-          <p className="mt-3 text-gray-700">{product.description}</p>
-          <p className="mt-4 text-2xl font-semibold">${product.price}</p>
+        <div className="space-y-4 sm:space-y-6">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">{product.title}</h1>
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{product.description}</p>
+          <p className="text-xl sm:text-2xl font-semibold text-blue-600">${product.price}</p>
           <button
-            className="mt-6 bg-blue-600 text-white px-5 py-3 rounded-md hover:bg-blue-700 transition-colors"
+            className="w-full sm:w-auto bg-blue-600 text-white px-4 sm:px-5 py-3 sm:py-3 rounded-md hover:bg-blue-700 transition-colors text-sm sm:text-base font-medium"
             onClick={() => {
               const exists = favorites.some(f => f.id === product.id);
               if (exists) {
