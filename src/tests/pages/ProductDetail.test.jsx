@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import productsReducer from '../features/products/productsSlice';
-import favoritesReducer from '../features/favorites/favoritesSlice';
-import ProductDetail from './ProductDetail';
+import productsReducer from '../../features/products/productsSlice';
+import favoritesReducer from '../../features/favorites/favoritesSlice';
+import ProductDetail from '../../pages/ProductDetail';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 

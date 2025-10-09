@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../features/products/productsThunks";
 import ProductCard from "../components/ProductCard";
 import SearchFilter from "../components/SearchFilter";
+import Loader from "../components/Loader";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ export default function Home() {
     return bySearch;
   }, [items, debouncedSearch, category, sort]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader text="Loading products..." />;
 
   return (
     <div className="px-4 py-6">

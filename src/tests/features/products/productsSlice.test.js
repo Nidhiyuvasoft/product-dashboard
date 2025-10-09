@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import reducer from './productsSlice';
-import { fetchProducts } from './productsThunks';
+import reducer from '../../../features/products/productsSlice';
+import { fetchProducts } from '../../../features/products/productsThunks';
 
 describe('productsSlice', () => {
   it('handles pending', () => {

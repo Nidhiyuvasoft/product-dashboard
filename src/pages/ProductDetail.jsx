@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addFavorite } from "../features/favorites/favoritesSlice";
 import toast from 'react-hot-toast';
+import Loader from "../components/Loader";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -15,7 +16,7 @@ export default function ProductDetail() {
     axios.get(`https://fakestoreapi.com/products/${id}`).then(res => setProduct(res.data));
   }, [id]);
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <Loader text="Loading product details..." />;
 
   return (
     <div className="px-4 py-6 max-w-5xl mx-auto">

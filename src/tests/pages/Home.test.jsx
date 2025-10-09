@@ -4,11 +4,11 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import Home from './Home';
+import Home from '../../pages/Home';
 import { MemoryRouter } from 'react-router-dom';
 
 
-vi.mock('../features/products/productsThunks', () => ({
+vi.mock('../../features/products/productsThunks', () => ({
   fetchProducts: () => ({ type: 'products/fetchProducts/mock' })
 }));
 

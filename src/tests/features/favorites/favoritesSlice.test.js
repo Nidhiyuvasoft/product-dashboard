@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import reducer, { addFavorite, removeFavorite, clearFavorites } from './favoritesSlice';
+import reducer, { addFavorite, removeFavorite, clearFavorites } from '../../../features/favorites/favoritesSlice';
 
 
 const localStorageMock = (() => {
